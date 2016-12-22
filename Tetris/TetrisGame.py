@@ -208,8 +208,6 @@ while 1:
 
 	shape = Shape(shape_color, shape_queue[0])
 
-	gameOver=Gameover(width,height,area.score)
-
 	screen.fill((255,255,255))
 	area.drawbox(screen)
 	menu=Menu(width,height)

@@ -23,12 +23,12 @@ class Menu:
 	def draw_menu(self,screen):
 		font_color = (0,0,0)
 		
+		background_picture = pygame.image.load("Tetris.jpg")
+		background_picture = pygame.transform.scale(background_picture, (self.width, self.height))
+		screen.blit(background_picture,(0,0))
+		
 		tetris_font = pygame.font.Font("pdark.ttf",32)
 		tetris_font.set_bold(1)
-
-		tetrisBG=(255*(1-self.tetris),255*(1-self.tetris),255*(1-self.tetris))
-		tetrisFont=(255*self.tetris,255*self.tetris,255*self.tetris)
-		pygame.draw.rect(screen, tetrisBG, (90,80,140,35),0)
 
 		label_1 = tetris_font.render("TETRIS",1, font_color)
 		label_1_rect = label_1.get_rect()

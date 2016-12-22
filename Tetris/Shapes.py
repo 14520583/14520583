@@ -3,14 +3,6 @@ import pygame
 import sys
 
 class Shape:
-	"""
-	Class used to build and keep track of
-	shapes used in our game.
-	
-	Initialize with a color and optional
-	shape_id, rotation, x location, and 
-	y location.
-	"""
 	def __init__(self, color, shape_id = 0, rotation = 0, track_x = 5, track_y = 0):
 		self.x = []
 		self.y = []
@@ -158,8 +150,6 @@ class Shape:
 						"00200",
 						"00000"]
 
-
-	# creates two arrays of x and y coordinates of the shapes blocks
 	def update_shape(self, matrix):
 		self.shape_types()
 		# clear x and y locations before adding new coordinates
@@ -180,21 +170,18 @@ class Shape:
 		except IndexError:
 			pass
 
-	# Updates the shape, checks is rotation is possible, checks if out of bounds,
-	# then draws the shape to the screen
+	# Updates the shape
+	# then draws the shape to the screen,rotation
 	def draw_shape(self, matrix, screen):
 		self.update_shape(matrix)
 		self.rotation_test(matrix)
 		self.check_bounds()
 		for index, item in enumerate(self.x):
 			screen.blit(self.block, (self.x[index]*20, self.y[index]*20))
-
-	# increments the rotation
 	def rotate(self, matrix):
 		self.rotation += 1
 
-	# attempt to move shape down by one. run test_y.
-	# if collision detected, move the shape back by one
+	# moves shape down
 	def move_down(self, matrix):
 		self.test_y(matrix)
 		if self.collision == 1:
@@ -204,8 +191,7 @@ class Shape:
 		self.y = [i+1 for i in self.y]
 		self.track_y += 1
 		
-
-	# moves shape left if all the tests pass and not collision detected
+	# moves shape left
 	def move_left(self, matrix):
 		self.test_left(matrix)
 		self.track_x -= 1
@@ -215,7 +201,7 @@ class Shape:
 			self.x = [i+1 for i in self.x]
 			self.collision = 0
 
-	# moves shape right if all the tests pass and not collision detected
+	# moves shape right
 	def move_right(self, matrix):
 		self.test_right(matrix)
 		self.track_x += 1
@@ -226,9 +212,7 @@ class Shape:
 			self.x = [i-1 for i in self.x]
 			self.collision = 0
 
-	# checks if the shape is out of bounds of the matrix,
-	# if out of bounds is detected, it moves it back
-	# if out of bounds on the y coordinate detected, it deactivates the shape
+	# checks out of bounds on the y coordinate detected, it deactivates the shape
 	def check_bounds(self):
 		max_y = max(self.y)
 		min_x = min(self.x)
@@ -244,11 +228,10 @@ class Shape:
 			self.x = [i-(max_x - 9) for i in self.x]
 			self.track_x -= (max_x - 9)
 
-	# deactivates the shape
 	def deactivate(self):
 		self.state = 1		
 
-	# tries to move the shape down by one, then checks there's a collision
+	# move the shape down by one, then checks there's a collision
 	def test_y(self, matrix):
 		try:
 			y_test = [i+1 for i in self.y]
@@ -259,7 +242,7 @@ class Shape:
 			self.collision = 1
 			pass
 
-	# tries to move the shape left by 1 then checks if there's a collision
+	# move the shape left by one, then checks if there's a collision
 	def test_left(self, matrix):
 		try:
 			x_test = [i-1 for i in self.x]
@@ -269,7 +252,7 @@ class Shape:
 		except IndexError:
 			pass
 
-	# tries to move the shape right by 1 then checks if there's a collision
+	# tries to move the shape right by one, then checks if there's a collision
 	def test_right(self, matrix):
 		try:
 			x_test = [i+1 for i in self.x]
@@ -279,7 +262,7 @@ class Shape:
 		except IndexError:
 			pass
 
-	# tries to rotate the shape, if there's an overlap, it prevents the rotation
+	# tries to rotate the shape
 	def rotation_test(self, matrix):
 		try:
 			rotation_error = 0
